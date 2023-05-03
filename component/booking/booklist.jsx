@@ -8,6 +8,7 @@ import { useState,useEffect } from "react";
 import { parseCookies } from "nookies";
 const Booklist =() =>{
     const [bookings, setBookings] = useState([]);
+    const [showep,setShowep] = useState(false);
     const [filteredBookings,setFilteredBookings] = useState([]);
     const cookies = parseCookies();
     const uId = cookies.id;
@@ -52,6 +53,7 @@ async function handleStatus(e,bid){
         console.log(bid)
         await updateDoc(doc(db, "booking", bid ), {status:"ongoing",statusDescription:"Confirmed"}).then(function(){
         customAlert("Confirmed booking","success");
+        setShowep(true);
     })
 }catch(e){
     console.log(e);
@@ -198,12 +200,13 @@ async function handleStatus(e,bid){
                         <div id="billamount" className="col-12 col-sm-6 col-md-12 col-xl-4 col-xl-4 ">
                             <b>Bill:</b> Rs {u.bill==null?"--.--":u.bill}
                         </div>
+                        {(u.status!=="upcoming")?<>
                         <div id="Phone" className="col-12 col-sm-6 col-md-12 col-xl-4 col-xl-4 ">
                             <b>Phone:</b> {u.cPhone}
                         </div>
                         <div id="Email" className="col-12 col-sm-8 col-md-12 col-xl-6">
                             <b>Email:</b> {u.cEmail}
-                        </div>
+                        </div></>:<></>}
                     </div>  
                 </div>
             </div>
