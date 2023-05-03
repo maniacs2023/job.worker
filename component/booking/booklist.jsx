@@ -54,6 +54,7 @@ async function handleStatus(e,bid){
         await updateDoc(doc(db, "booking", bid ), {status:"ongoing",statusDescription:"Confirmed"}).then(function(){
         customAlert("Confirmed booking","success");
         setShowep(true);
+        handleRefresh(e);
     })
 }catch(e){
     console.log(e);

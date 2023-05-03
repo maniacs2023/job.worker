@@ -124,16 +124,7 @@ a:hover, a:active{
             Home
           </a>
         </li>
-        <li className="navitem" onClick={()=>{router.push("/about").then( event => DisplaySidenav(false))}}>
-          <a className="navlink" >
-            About Us
-          </a>
-        </li>
-        <li className="navitem" onClick={()=>{router.push("/description").then( event => DisplaySidenav(false))}}>
-          <a className="navlink" >
-            Our Company
-          </a>
-        </li>
+        
         <hr/>
         <li className="navitem">
           <a className="navlink" onClick={() => {setUserLogout(true)}}>
@@ -185,16 +176,7 @@ a:hover, a:active{
             Home
           </a>
         </li>
-        <li className="navitem" onClick={()=>{router.push("/about").then( event => DisplaySidenav(false))}}>
-          <a className="navlink" >
-            About Us
-          </a>
-        </li>
-        <li className="navitem" onClick={()=>{router.push("/description").then( event => DisplaySidenav(false))}}>
-          <a className="navlink" >
-            Our Company
-          </a>
-        </li>
+       
         <div className="navbar-footer">
           <div className="row">
             <div className="col-12">

@@ -69,8 +69,8 @@ export default function Backgroundimage(){
 .sloganTitle{
   color: white;
   position: absolute;
-  top:calc(2vh + 10vw);
-  left:calc(2vh + 10vw);
+  top:calc(1.5vh + 8vw);
+  left:calc(1.5vh + 5vw);
   transform translate(-50%,-50%);
   width:calc(20vh + 20vw);
   font-weight: bold;

@@ -19,7 +19,9 @@ const Queryform = () => {
     max-width: 500px;
     margin: 0 auto;
   }
-
+  *{
+    color:var(--text-color);
+  }
   label {
     display: flex;
     flex-direction: column;
@@ -34,6 +36,7 @@ const Queryform = () => {
     border: 2px solid var(--sub-theme-color);
     outline:none;
     width: 100%;
+    background-color:var(--second-bg-color);
   }
 
   button {
@@ -41,10 +44,12 @@ const Queryform = () => {
     border-radius: 5px;
     border: none;
     background-color: #0070f3;
-    color: #fff;
+    color: var(--text-color);
     cursor: pointer;
   }
-
+  .queryform{
+    border: 1px solid var(--main-theme-color);
+  }
   @media screen and (max-width: 480px) {
     label {
       margin-bottom: 10px;
@@ -62,8 +67,9 @@ const Queryform = () => {
       font-size: 14px;
     }
   }
+
 `}</style>
-        <div className="col-12 col-md-6 col-xl-6">
+        <div id="queryform" className="col-12 col-md-6 col-xl-6 mb-5">
           <h3 className="text-center">Do you have any query?</h3>
           <h5 className="text-center">feel free to ask us, anytime</h5>
       <form onSubmit={handleSubmit}>

@@ -8,6 +8,9 @@ const Grid4 = () => {
     .grid{
         padding: calc(2vh + 2vw); 
     }
+    *{
+      color:var(--text-color);
+    }
     .feature-icon{
         background-color: var(--main-theme-color);
         position: relative;
