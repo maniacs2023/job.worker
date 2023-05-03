@@ -2,7 +2,7 @@ import {useRouter} from 'next/router'
 import {useState,useEffect} from 'react'
 import { useAuth } from '../../context/AuthContext'
 import Userlogout from './userlogout.jsx'
-//import Theme from '../changetheme/theme.jsx'
+import Theme from '../changetheme/theme.jsx'
 const Sidenav = function({DisplaySidenav}) {
   const router = useRouter()
   const { user } = useAuth()
@@ -119,13 +119,31 @@ a:hover, a:active{
           </a>
         </li>
           <hr/>
+          <li className="navitem" onClick={()=>{router.push("/").then( event => DisplaySidenav(false))}}>
+          <a className="navlink" >
+            Home
+          </a>
+        </li>
+        <li className="navitem" onClick={()=>{router.push("/about").then( event => DisplaySidenav(false))}}>
+          <a className="navlink" >
+            About Us
+          </a>
+        </li>
+        <li className="navitem" onClick={()=>{router.push("/description").then( event => DisplaySidenav(false))}}>
+          <a className="navlink" >
+            Our Company
+          </a>
+        </li>
+        <hr/>
         <li className="navitem">
           <a className="navlink" onClick={() => {setUserLogout(true)}}>
             Logout
           </a>
         </li>
         <div className="navbar-footer">
-          
+          <div className='row'>
+            <Theme/>
+          </div>
           <div className="row">
             <b>Follow Us</b>
           </div>
@@ -159,6 +177,22 @@ a:hover, a:active{
         <li className="navitem">
           <a className="navlink" href="https://coordinatorpage.maniacscse.repl.co/">
             Coordinator
+          </a>
+        </li>
+        <hr/>
+        <li className="navitem" onClick={()=>{router.push("/").then( event => DisplaySidenav(false))}}>
+          <a className="navlink" >
+            Home
+          </a>
+        </li>
+        <li className="navitem" onClick={()=>{router.push("/about").then( event => DisplaySidenav(false))}}>
+          <a className="navlink" >
+            About Us
+          </a>
+        </li>
+        <li className="navitem" onClick={()=>{router.push("/description").then( event => DisplaySidenav(false))}}>
+          <a className="navlink" >
+            Our Company
           </a>
         </li>
         <div className="navbar-footer">

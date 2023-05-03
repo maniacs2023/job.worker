@@ -29,7 +29,7 @@ export const AuthContextProvider = ({
         setUser({
           uid: user.uid,
           email: user.email,
-          displayName: cookie.displayName
+          displayName: cookie.name
         })
       } else {
         setUser(null)
@@ -76,7 +76,7 @@ export const AuthContextProvider = ({
     await signOut(auth)
   }
   const dataset = (uid: string) => {
-    getDoc(doc(db, "customer", uid)).then(docSnap => {
+    getDoc(doc(db, "worker", uid)).then(docSnap => {
       if (docSnap.exists()) {
         const docObj = docSnap.data();
         setUserdata({ ...docObj,id:uid })

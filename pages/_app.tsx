@@ -13,6 +13,9 @@ import { useEffect } from 'react';
 import { parseCookies } from 'nookies';
 import ProtectedRoute from '../context/ProtectedRoute'
 
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const noAuthRequired = ['/', '/login', '/signup', '/search']
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -40,10 +43,10 @@ return (
       
       <Navbar/>
       {noAuthRequired.includes(router.pathname) ? (
-        <div className="main"><Component {...pageProps} /></div>
+        <div className="main"><ToastContainer /><Component {...pageProps} /></div>
       ) : (
         <ProtectedRoute>
-          <div className="main"><Component {...pageProps} /></div>
+          <div className="main"><ToastContainer /><Component {...pageProps} /></div>
         </ProtectedRoute>
       )}
       <Footer/>

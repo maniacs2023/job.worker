@@ -1,11 +1,11 @@
 import { useState } from "react"
 const Queryform = () => {
-    const [name, setName] = useState('')
+    const [email, setEmail] = useState('')
     const [message, setMessage] = useState('')
     
     function handleSubmit(event) {
       event.preventDefault()
-      const formData = { name, message }
+      const formData = { email, message }
       console.log(formData);
     }
     
@@ -31,7 +31,8 @@ const Queryform = () => {
   textarea {
     padding: 10px;
     border-radius: 5px;
-    border: 1px solid #ccc;
+    border: 2px solid var(--sub-theme-color);
+    outline:none;
     width: 100%;
   }
 
@@ -51,6 +52,7 @@ const Queryform = () => {
 
     input,
     textarea {
+      
       padding: 5px;
       font-size: 14px;
     }
@@ -62,10 +64,12 @@ const Queryform = () => {
   }
 `}</style>
         <div className="col-12 col-md-6 col-xl-6">
+          <h3 className="text-center">Do you have any query?</h3>
+          <h5 className="text-center">feel free to ask us, anytime</h5>
       <form onSubmit={handleSubmit}>
         <label>
-          Name:
-          <input type="text" value={name} onChange={event => setName(event.target.value)} />
+          Email:
+          <input type="text" value={email} onChange={event => setEmail(event.target.value)} />
         </label>
         <label>
           Message:

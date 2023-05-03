@@ -1,4 +1,5 @@
 import { useAuth } from '../../context/AuthContext'
+import customAlert from "../customalert"
 const Userlogout = function({loggingout}){
   const { logout } = useAuth()
   return (<>
@@ -58,7 +59,7 @@ const Userlogout = function({loggingout}){
           <div className="logoutcheckbox">
             <label className="labeltext">Are you sure you want to logout?</label><br />
             <button className="bg-danger" id="logoutno" onClick={() => { loggingout(false) }}>No</button><button className="bg-success" id="logoutyes" onClick={() => { logout().then(function(){
-            loggingout(false)
+            loggingout(false);customAlert("logged out","warning");
             }) }}>Yes</button>
     </div>
   </>)
