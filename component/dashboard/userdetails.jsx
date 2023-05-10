@@ -27,18 +27,11 @@ function changeValue(t,v){
     if(edit==true){
       if(userData.phoneNumber != userPhoneNo){
         document.getElementById("showokbtn1").style.visibility = "visible";
-        setUserAltphNo(userData.altPhoneNumber)
+        
         setUserAddress(userData.address)
       }
       if(userData.phoneNumber == userPhoneNo)
       document.getElementById("showokbtn1").style.visibility = "hidden";
-      if(userData.altPhoneNumber != userAltphNo){
-      document.getElementById("showokbtn2").style.visibility = "visible";
-      setUserPhoneNo(userData.phoneNumber)
-      setUserAddress(userData.address)
-      }
-      if(userData.altPhoneNumber == userAltphNo)
-      document.getElementById("showokbtn2").style.visibility = "hidden";
       if(userData.address != userAddress){
         document.getElementById("showokbtn3").style.visibility = "visible";
         setUserPhoneNo(userData.phoneNumber)

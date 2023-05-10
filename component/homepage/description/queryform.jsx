@@ -1,4 +1,5 @@
 import { useState } from "react"
+import Faq from "./faq"
 const Queryform = () => {
     const [email, setEmail] = useState('')
     const [message, setMessage] = useState('')
@@ -69,6 +70,7 @@ const Queryform = () => {
   }
 
 `}</style>
+        <div className="row">
         <div id="queryform" className="col-12 col-md-6 col-xl-6 mb-5">
           <h3 className="text-center">Do you have any query?</h3>
           <h5 className="text-center">feel free to ask us, anytime</h5>
@@ -83,6 +85,8 @@ const Queryform = () => {
         </label>
         <button type="submit">Submit</button>
       </form>
+      </div>
+      <Faq/>
       </div>
         </>
       

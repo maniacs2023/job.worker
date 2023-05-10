@@ -93,6 +93,7 @@ const Signup = function() {
         star
       });
       customAlert("Registered","success");
+      await dataset(userIdRef.current);
     }
       customAlert("Worker added successfully");
         setName("");
@@ -107,6 +108,7 @@ const Signup = function() {
         setCountry("");
         setAge("");
         setStar("");
+        router.push('setprofile')
     } catch (error) {
       customAlert(error.message,"error")
     }

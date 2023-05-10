@@ -32,7 +32,7 @@ const Login = function() {
       customAlert("logged","success")
       router.push('/')
     } catch (err) {
-      // s
+      customAlert("Invalid username/password","error")
     }
   }
   function showPassword(){
