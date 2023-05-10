@@ -36,6 +36,10 @@ const Faq = () => {
         max-height: 0;
         overflow: hidden;
     }
+    ul,li{
+        background-color:var(--bg-color) !important;
+        color: var(--text-color) !important;
+    }
     .display-text.show{
         max-height: 1000px; 
         opacity:1;
@@ -63,7 +67,7 @@ const Faq = () => {
             </li>
         </ul>
         </div>
-    )})};
+    )})}
     </div>
     </div>
     </>);
