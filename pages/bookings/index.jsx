@@ -1,4 +1,4 @@
-import Booklist from "../component/booking/booklist.jsx"
+import Booklist from "../../component/booking/booklist"
 const Bookings = () =>{
     return(<>
     <Booklist/>

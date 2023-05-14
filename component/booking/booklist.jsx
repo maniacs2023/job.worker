@@ -6,12 +6,14 @@ import customAlert from "../customalert"
 
 import { useState,useEffect } from "react";
 import { parseCookies } from "nookies";
+import { useRouter } from "next/router.js";
 const Booklist =() =>{
     const [bookings, setBookings] = useState([]);
     const [showep,setShowep] = useState(false);
     const [filteredBookings,setFilteredBookings] = useState([]);
     const cookies = parseCookies();
     const uId = cookies.id;
+    const router = useRouter()
     const getBookings = async () => {
         const db = getFirestore();
         const bookingsRef = collection(db, 'booking')
@@ -47,7 +49,7 @@ function handleClickForCategory(status) {
         setFilteredBookings(updatingBookings);
     }
 }
-async function handleStatus(e,bid){
+async function handleConfirm(e,bid){
     e.preventDefault();
     try{
         console.log(bid)
@@ -60,6 +62,28 @@ async function handleStatus(e,bid){
     console.log(e);
     customAlert("error","error");
 }
+}
+async function handleCancel(e,bid){
+    e.preventDefault();
+    try{
+        console.log(bid)
+        await updateDoc(doc(db, "booking", bid ), {status:"cancelled",statusDescription:"Booking Cancelled"}).then(function(){
+        customAlert("Cancelled booking");
+        setShowep(true);
+        handleRefresh(e);
+    })
+}catch(e){
+    console.log(e);
+    customAlert("error","error");
+}
+}
+function handleShowDetails(e,bid){
+    e.preventDefault();
+    try{
+        router.push('/bookings/'+bid);
+    }catch(e){
+        customAlert("Can't open :"+e);
+    }
 }
     return(<>
     <style jsx>{`
@@ -114,7 +138,11 @@ async function handleStatus(e,bid){
         transform: translateY(0);
         animation: slideIn 0.5s ease-in-out;
       }
-      
+      .btn{
+        width:120px;
+        color:white;
+        margin-top:20px;
+      }
       @keyframes slideIn {
         0% {
           opacity: 0;
@@ -161,7 +189,7 @@ async function handleStatus(e,bid){
         <div className="mx-auto mb-3 col-12 col-sm-10 col-md-8 col-xl-8 col backgd">
         <div className="refreshdiv"><button onClick={(e)=>handleRefresh(e)} className="refreshbtn"><span>Click to Refresh</span><i className="bi bi-arrow-clockwise"></i></button></div>
         {filteredBookings.map(u=>       
-            <div id="eachItem" key={u.id} className="mb-3 card">
+            <div id="eachItem" key={u.id} className="mb-3 card" onClick={(e)=>{if(u.status==="ongoing"){handleShowDetails(e,u.id)}}}>
                 <div className="card-body row theme-color"> 
                     
                     <div className="col-3 col-md-2">
@@ -186,7 +214,6 @@ async function handleStatus(e,bid){
                         </div>
                         <div id="statusupdate" className="col-12 col-sm-6 col-md-12 col-xl-4 col-xl-4 ">
                             <b>{u.statusDescription}</b>
-                            {u.status==="upcoming" && <button onClick={(e)=>handleStatus(e,u.id)}>Confirm</button>}
                         </div>
                         <div id="typename" className="col-12 col-sm-6 col-md-12 col-xl-4 col-xl-4 ">
                             <b>Name:</b> {u.cName}
@@ -201,13 +228,22 @@ async function handleStatus(e,bid){
                         <div id="billamount" className="col-12 col-sm-6 col-md-12 col-xl-4 col-xl-4 ">
                             <b>Bill:</b> Rs {u.bill==null?"--.--":u.bill}
                         </div>
-                        {(u.status!=="upcoming")?<>
+                        
+                        {(u.status!=="upcoming" && u.status!=="cancelled" )?<>
                         <div id="Phone" className="col-12 col-sm-6 col-md-12 col-xl-4 col-xl-4 ">
                             <b>Phone:</b> {u.cPhone}
                         </div>
                         <div id="Email" className="col-12 col-sm-8 col-md-12 col-xl-6">
                             <b>Email:</b> {u.cEmail}
                         </div></>:<></>}
+                        {u.status==="upcoming" && <>
+                        <button className="bg-primary btn" onClick={(e)=>handleConfirm(e,u.id)}>Confirm</button>
+                        <button className="bg-danger btn" onClick={(e)=>handleCancel(e,u.id)}>Cancel</button>
+                        </>}
+                        {u.status==="ongoing" && <>
+                        <button className="bg-primary btn disabled" onClick={(e)=>handleConfirm(e,u.id)}>Confirm</button>
+                        <button className="bg-danger btn" onClick={(e)=>handleCancel(e,u.id)}>Cancel</button>
+                        </>}
                     </div>  
                 </div>
             </div>

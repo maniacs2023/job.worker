@@ -13,6 +13,8 @@
     "@emotion/styled": "^11.10.5",
     "@mui/material": "^5.10.13",
     "@mui/styled-engine-sc": "^5.10.6",
+    "@tomtom-international/web-sdk-maps": "^6.23.0",
+    "@tomtom-international/web-sdk-services": "^6.23.0",
     "@types/node": "18.11.9",
     "@types/react": "18.0.25",
     "@types/react-dom": "18.0.8",
