@@ -2,25 +2,25 @@ import { Image } from "react-bootstrap";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import {db} from "../../../firebase";
-import { getDoc,  doc } from 'firebase/firestore';
+import { getDoc, doc } from 'firebase/firestore';
 import MyMap from "../../../component/tomtommap/mymap";
 const Bookdetails = () => {
     const router = useRouter();
     const [bd,setbdata] = useState([]);
-    
-    useEffect(()=>{
-        const fetchData = async() =>{
-            const bookid = router.query.bookdetails;
-            const bookRef = doc(db, "booking", bookid);
-            try {
-                const docSnap = await getDoc(bookRef);
-                setbdata(docSnap.data());
-            } catch(error) {
-                console.log(error)
-            }
+    const {book} = router.query;
+    useEffect(() => {
+        const fetchData = async () => {
+          getDoc(doc(db, "booking", book)).then((docSnap) => {
+              if (docSnap.exists()) {
+                const docObj = docSnap.data();
+                setbdata({ ...docObj });                
+              }
+          })
+        };
+        if (book) {
+          fetchData()
         }
-        return(()=>fetchData())
-    },[]);
+      }, [book]);
     return ( <>
     <div className="container mt-5">
     
@@ -40,7 +40,8 @@ const Bookdetails = () => {
                 </div>
                 
                 <div className="col-12 col-sm-6 col-md-12 col-xl-4 col-xl-4  mt-5">
-                    <MyMap latitude={bd.clocationlat} longitude={bd.clocationlon}/>
+                <b>Location:</b>
+                <MyMap latitude={bd.clocationlat} longitude={bd.clocationlon}/>
                 </div>
             </div>
         </div>
