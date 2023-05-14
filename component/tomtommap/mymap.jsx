@@ -13,8 +13,7 @@ const MyMap = (props) => {
 
     import('@tomtom-international/web-sdk-maps')
       .then((tt) => {
-        try{
-          const newMap = tt.map({
+        const newMap = tt.map({
           key: 'LuXWupcXRpMmpMQKpFC6HEF1HWJjAhFp',
           container: mapElement.current,
           center: [mapLongitude, mapLatitude],
@@ -23,9 +22,6 @@ const MyMap = (props) => {
         const newMarker = new tt.Marker().setLngLat([mapLongitude,mapLatitude ]).addTo(newMap);
         setMarker(newMarker);
         setMap(newMap);
-        }catch(e){
-          console.log(e);
-        }
         return () => {
             newMarker.remove();
             newMap.remove();
