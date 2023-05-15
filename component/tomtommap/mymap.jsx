@@ -3,14 +3,13 @@ import "@tomtom-international/web-sdk-maps/dist/maps.css";
 
 const MyMap = (props) => {
   const mapElement = useRef();
-  const [mapLongitude, setMapLongitude] = useState(Number(props.longitude));
-  const [mapLatitude, setMapLatitude] = useState(Number(props.latitude));
   const [mapZoom, setMapZoom] = useState(18);
   const [map, setMap] = useState({});
   const [marker, setMarker] = useState(null);
-
+  const mapLongitude = props.longitude;
+  const mapLatitude = props.latitude;
   useEffect(() => {
-
+    
     import('@tomtom-international/web-sdk-maps')
       .then((tt) => {
         const newMap = tt.map({
@@ -28,7 +27,7 @@ const MyMap = (props) => {
           };
       })
       .catch((error) => {
-        console.log(error+" "+mapLongitude+"|"+mapLatitude);
+        console.log(error+" "+props.latitude+"|"+mapLatitude);
       });
   }, []);
 

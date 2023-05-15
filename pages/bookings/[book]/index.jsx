@@ -7,13 +7,15 @@ import MyMap from "../../../component/tomtommap/mymap";
 const Bookdetails = () => {
     const router = useRouter();
     const [bd,setbdata] = useState([]);
+    const [isData,setIsData] = useState(false);
     const {book} = router.query;
     useEffect(() => {
         const fetchData = async () => {
           getDoc(doc(db, "booking", book)).then((docSnap) => {
               if (docSnap.exists()) {
                 const docObj = docSnap.data();
-                setbdata({ ...docObj });                
+                setbdata({ ...docObj });
+                setIsData(true);                
               }
           })
         };
@@ -21,7 +23,7 @@ const Bookdetails = () => {
           fetchData()
         }
       }, [book]);
-    return ( <>
+    return ( <> {isData &&
     <div className="container mt-5">
     
         <div className="col-xl-12">
@@ -45,7 +47,7 @@ const Bookdetails = () => {
                 </div>
             </div>
         </div>
-    </div>
+    </div>}
     </> );
 }
 export default Bookdetails;
