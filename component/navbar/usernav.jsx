@@ -29,7 +29,7 @@ export default function UserNav() {
       `}</style>
       <div className="p-1">
         <ul className="d-flex topnav">
-          <li className="topitem">{userData.displayName?userData.displayName:(user.displayName?user.displayName:user.email)}
+          <li className="topitem">{userData.name?userData.name:(user.displayName?user.displayName:user.email)}
           </li>
           <li className="topimage"><Avatar src={userData.profilepic} sx={{ width: 35, height: 35 }} /></li>
         </ul>
