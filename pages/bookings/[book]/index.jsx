@@ -2,11 +2,14 @@ import { Image } from "react-bootstrap";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import {db} from "../../../firebase";
-import { getDoc, doc } from 'firebase/firestore';
+import { getDoc, doc ,updateDoc, serverTimestamp } from 'firebase/firestore';
 import MyMap from "../../../component/tomtommap/mymap";
+import customAlert from "../../../component/customalert";
 const Bookdetails = () => {
     const router = useRouter();
     const [bd,setbdata] = useState([]);
+    const [billAmount,setBillAmount] = useState(0);
+    const [otp,setOtp] = useState("");
     const [isData,setIsData] = useState(false);
     const {book} = router.query;
     useEffect(() => {
@@ -23,6 +26,33 @@ const Bookdetails = () => {
           fetchData()
         }
       }, [book]);
+      const handleBillAmount = async(e) =>{
+        e.preventDefault();
+        try{
+        await updateDoc(doc(db, "booking", book ), {status:"previous",statusDescription:"Completed", bill:billAmount, endTime:serverTimestamp()}).then(function(){
+          customAlert("Generating Bill","success");
+        })
+      }catch(e){
+          console.log(e);
+          customAlert("error","error");
+        }
+      }
+      const handleConfirmOtp = async(e) =>{
+        e.preventDefault();
+        try{
+          if(otp == bd?.OTP){
+            await updateDoc(doc(db, "booking", book ), {statusDescription:"Working", startTime:serverTimestamp()}).then(function(){
+              customAlert("Started Working","success");
+            })
+          }else{
+            customAlert("Invalid OTP","error");
+          }
+          }catch(e){
+              console.log(e);
+              customAlert("error","error");
+            }
+          
+      }
     return ( <> <style jsx>{`
     .mapdiv{
       width:360px;
@@ -61,6 +91,25 @@ const Bookdetails = () => {
                   <button className="btn shadow m-2 bg-primary" onClick={()=>window.location.href = `tel:${bd.cPhone}`}>Call the Customer</button>
                   <button className="btn shadow m-2 bg-success" onClick={()=>window.location.href = `mailto:${bd.cEmail}`}>Email the Customer</button>
               </div>
+            </div>
+            <div className="row m-5">
+                <div className="col-12 col-sm-6 col-md-12 col-xl-4 col-xl-4">
+                  {bd.statusDescription == "Confirmed" ? 
+                  <>
+                  <label><b>Enter OTP:</b></label><br/>
+                  <input type="text" value={otp} onChange={(e)=>setOtp(e.target.value)}></input><br/>
+                  <button className="btn my-2 bg-warning" onClick={(e)=>handleConfirmOtp(e)}>Start</button>
+                  </>:<>
+                  <label htmlFor="bill"><b>Total Bill Amount</b></label><br/>
+                  {bd.bill===null ? <>
+                  <input type="text" value={billAmount} onChange={(e)=>setBillAmount(e.target.value)}/><br/>
+                  <button className="btn my-2 bg-warning" onClick={(e)=>handleBillAmount(e)}>Go {' >'}</button></>:
+                  <>
+                  <p>Total Amount : ₹ {bd.bill}</p>
+                  </>
+                  }</>}
+
+                </div>
             </div>
         </div>
     </div>}

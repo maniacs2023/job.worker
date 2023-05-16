@@ -3,7 +3,6 @@ import Statusicon from "./statusicon.jsx";
 import { getFirestore, collection, getDocs, where, query, orderBy, updateDoc, doc } from 'firebase/firestore';
 import { db } from '../../firebase.js'
 import customAlert from "../customalert"
-
 import { useState,useEffect } from "react";
 import { parseCookies } from "nookies";
 import { useRouter } from "next/router.js";
@@ -52,8 +51,10 @@ function handleClickForCategory(status) {
 async function handleConfirm(e,bid){
     e.preventDefault();
     try{
-        console.log(bid)
-        await updateDoc(doc(db, "booking", bid ), {status:"ongoing",statusDescription:"Confirmed"}).then(function(){
+        //console.log(bid)
+        let otpvalue = Math.floor(1000 + Math.random() * 9000);
+        console.log(otpvalue);
+        await updateDoc(doc(db, "booking", bid ), {OTP:otpvalue, status:"ongoing",statusDescription:"Confirmed"}).then(function(){
         customAlert("Confirmed booking","success");
         setShowep(true);
         handleRefresh(e);
@@ -189,7 +190,7 @@ function handleShowDetails(e,bid){
         <div className="mx-auto mb-3 col-12 col-sm-10 col-md-8 col-xl-8 col backgd">
         <div className="refreshdiv"><button onClick={(e)=>handleRefresh(e)} className="refreshbtn"><span>Click to Refresh</span><i className="bi bi-arrow-clockwise"></i></button></div>
         {filteredBookings.map(u=>       
-            <div id="eachItem" key={u.id} className="mb-3 card" onClick={(e)=>{if(u.status==="ongoing"){handleShowDetails(e,u.id)}}}>
+            <div id="eachItem" key={u.id} className="mb-3 card">
                 <div className="card-body row theme-color"> 
                     
                     <div className="col-3 col-md-2">
@@ -241,7 +242,7 @@ function handleShowDetails(e,bid){
                         <button className="bg-danger btn" onClick={(e)=>handleCancel(e,u.id)}>Cancel</button>
                         </>}
                         {u.status==="ongoing" && <>
-                        <button className="bg-primary btn disabled" onClick={(e)=>handleConfirm(e,u.id)}>Confirm</button>
+                        <button className="bg-primary btn" onClick={(e)=>{if(u.status==="ongoing"){handleShowDetails(e,u.id)}}}>Show Details</button>
                         <button className="bg-danger btn" onClick={(e)=>handleCancel(e,u.id)}>Cancel</button>
                         </>}
                     </div>  
