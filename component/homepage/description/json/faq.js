@@ -13,7 +13,7 @@ module.exports = [
     },
     {
         "key":3,
-        "ques":"How much will a earn if you join Maniacs?",
+        "ques":"How much will you earn if you join Maniacs?",
         "text":"Earning is depend upon you. How much you want to bill the customer. We will not charge any money form you. Our revenue is from advertisment and promotion",
         "textid":"text3"
     },
